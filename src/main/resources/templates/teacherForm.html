@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/header :: head">
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+	<header th:replace="layout/header :: header"></header>
+	<br>
+	<br>
+	<br>
+	<div class="container">
+		<br>
+		<div align="center" class="mb-3">
+			<h2 th:text="${titulo}"></h2>
+		</div>
+		<div class="card" style="width: 40rem; margin: auto auto;">
+			<div class="card-body">
+				<br>
+				<form th:action="@{/teacher/save}" th:object="${teacher}"  method="post">
+
+					<input id="id" name="id" type="hidden" th:field="*{id}" readonly="readonly" />
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="nombres">Nombres:</label>
+							</div>
+							<div class="col-10">
+								<input type="text" name="nombres" class="form-control"
+									th:field="*{nombres}" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="apellidos">Apellidos:</label>
+							</div>
+							<div class="col-10">
+								<input type="text" name="apellidos" class="form-control"
+									th:field="*{apellidos}" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="rut">Rut:</label>
+							</div>
+							<div class="col-10">
+								<input type="text" name="rut" class="form-control"
+									th:field="*{rut}" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="email">Email:</label>
+							</div>
+							<div class="col-10">
+								<input type="email" name="email" class="form-control"
+									th:field="*{email}" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="telefono">Teléfono:</label>
+							</div>
+							<div class="col-10">
+								<input type="text" name="telefono" class="form-control"
+									th:field="*{telefono}">
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="descripcion">Descripción:</label>
+							</div>
+							<div class="col-10">
+								<textarea name="descripcion" class="form-control"
+									th:field="*{descripcion}"></textarea>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="modalidad">Modalidad:</label>
+							</div>
+							<div class="col-10">
+								<select name="modalidad" class="form-control">
+									<option th:each = "modalidad: ${modalidad}" th:value = "${modalidad}" th:text="${modalidad}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="tarifa">Tarifa:</label>
+							</div>
+							<div class="col-10">
+								<input type="text" name="tarifa" class="form-control"
+									th:field="*{tarifa}">
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="ciudad">Ciudad:</label>
+							</div>
+							<div class="col-10">
+								<select id="buscador2" th:name="ciudad" class="col-12">
+								<option th:if="${idCity!=null}" th:each="city: ${cities}"
+									th:value="${city.id}" th:text="${city.nombre_ciudad}" th:selected="${city.id==idCity}">
+								</option>
+								<option th:if="${idCity==null}" th:each="city: ${cities}"
+									th:value="${city.id}" th:text="${city.nombre_ciudad}">
+								</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="nivelEducacional">Nivel Educacional:</label>
+							</div>
+							<div class="col-10">
+								<select name="nivelEducacional" class="form-control">
+									<option th:each = "nivel: ${nivelEducacional}" th:value = "${nivel}" th:text="${nivel}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="especialidad">Especialidad:</label>
+							</div>
+							<div class="col-8">
+								<select id="buscador" th:name="especialidad" class="col-12">
+									<option th:each="specialty: ${specialties}"
+										th:value="${specialty.id}" th:text="${specialty.nombre}" th:selected="${specialty.id == idSpecialties}" th:if="${teacher.id!=0} AND ${idSpecialties != null}">
+									</option>
+									<option th:each="specialty: ${specialties}"
+										th:value="${specialty.id}" th:text="${specialty.nombre}" 
+										th:if="${teacher.id==0} OR ${idSpecialties == null}">
+									</option>
+								</select>
+							</div>
+							<div class="col-2">
+							<button class="btn btn-sm btn-success mt-1" onclick="agregar();" type="button">
+								Agregar
+							</button>
+							</div>
+						</div>
+						<div class="offset-2 mt-2">
+							<ul id="listaEspecialidades">
+								<li th:each="specialty: ${tEspecialidades}" th:value="${specialty.id}" onclick="eliminar(this)" class="especialidad">
+								<span class="badge badge-pill badge-danger">[[${specialty.nombre}]] <i class="fa fa-times"></i></span>
+								</a></li>
+							</ul>
+							</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-10" style="margin: auto auto;">
+								<button type="submit" class="btn btn-primary btn-block" th:text="${textoBoton}"></button>
+							</div>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>	
+	<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+	<script>
+    var token = $("meta[name='_csrf']").attr("content"), header = $("meta[name='_csrf_header']").attr("content");
+		$(document).ready(function() {
+			$('#buscador').select2();
+			$('#buscador2').select2();
+			
+		});
+		function imprimir(value){
+			//console.log(value.getAttribute("value"));
+		}
+		function eliminar(item){
+			console.log(item);
+			var especialidad = item.getAttribute("value");
+	        var json = {"especialidad":especialidad, "id":$("#id").val()}
+	        $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacher/eliminarEsp",
+                dataType: "json",
+                data: JSON.stringify(json),
+                cache: false,
+                timeout: 600000,
+                beforeSend: function (e) {
+                    e.setRequestHeader(header, token)
+                },
+                success: function (data) {
+                    if (data.length > 0) {
+                        console.log(data);
+                        var ul = $('#listaEspecialidades');
+                        ul.empty();
+                        $.each(data, function(index,value){
+                            ul.append($('<li/>',{id:'esp'+value.id, value: value.id})
+                            		.append($('<span></span>',{text: value.nombre}).addClass('badge badge-pill badge-primary')));
+
+                        });
+	        			$('#listaEspecialidades li span').append($('<i></i>').addClass('fa fa-times ml-1'));
+	        			/*$(document).on('click','#listaEspecialidades li',function(){
+	        				console.log(this);
+	        				eliminar(this);
+	        			});*/
+	        			$('#listaEspecialidades li').on('click', function(){
+	        				eliminar(this);
+	        			})
+	        			
+                        console.log($('ul'));                       
+                    }else{
+                    	var ul = $('#listaEspecialidades');
+                        ul.empty();
+                        ul.append($('<li>No tiene especialidades registradas</li>'));
+                    }
+                },
+                complete: function (){
+                	
+                }
+            });
+		}
+		function agregar(){
+			var esp = $('#buscador').val();
+			console.log(esp);
+			var json = {"especialidad":esp, "id":$("#id").val()}
+	        $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacher/agregarEsp",
+                dataType: "json",
+                data: JSON.stringify(json),
+                cache: false,
+                timeout: 600000,
+                beforeSend: function (e) {
+                    e.setRequestHeader(header, token)
+                },
+                success: function (data) {
+                    if (data.length > 0) {
+                        console.log(data);
+                        var ul = $('#listaEspecialidades');
+                        ul.empty();
+                        $.each(data, function(index,value){
+                        	ul.append($('<li/>',{id:'esp'+value.id, value: value.id})
+                            		.append($('<span></span>',{text: value.nombre}).addClass('badge badge-pill badge-primary')));
+                        });
+	        			$('#listaEspecialidades li span').append($('<i></i>').addClass('fa fa-times ml-1'));
+
+	        			$('#listaEspecialidades li').on('click', function(){
+	        				eliminar(this);
+	        			})
+	        			
+                        console.log($('ul'));                                
+                    }else{
+                        var ul = $('#listaEspecialidades');
+                        ul.empty();
+                        ul.append($('<li>No tiene especialidades registradas</li>'));
+                    }
+                }
+                
+            });
+		}
+		/*$("#listaEspecialidades li").on("click", function(){
+	        //var dataId = $(this).attr("data-id");
+	        //console.log(this.getAttribute("value"));
+	        var especialidad = this.getAttribute("value");
+	        var json = {"especialidad":especialidad, "id":$("#id").val()}
+	        $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/teacher/esp",
+                dataType: "json",
+                data: JSON.stringify(json),
+                cache: false,
+                timeout: 600000,
+                beforeSend: function (e) {
+                    e.setRequestHeader(header, token)
+                },
+                success: function (data) {
+                    if (data.length > 0) {
+                        console.log(data);
+                        var ul = $('#listaEspecialidades');
+                        ul.empty();
+                        $.each(data, function(index,value){
+                            ul.append($('<li/>',{text: value.nombre, id:'esp'+value.id, value: value.id}).addClass("especialidad"));
+                            		
+                            
+                            
+                        });
+	        			$('ul .especialidad').append($('<i></i>').addClass('fa fa-times'));
+                        console.log($('ul'));                       
+                    }
+                }
+            });
+	    });*/
+	
+	</script>
+	
+	<!-- Select2 -->
+	<script th:src="@{/js/select2.js}"></script>
+<style>
+#listaEspecialidades li {
+     display:inline;
+     padding-left:3px;
+     padding-right:3px;
+}
+</style>
+</body>
+</html>

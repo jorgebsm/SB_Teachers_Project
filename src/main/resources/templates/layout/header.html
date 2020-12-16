@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<meta name="_csrf" th:content="${_csrf.token}">
+<meta name="_csrf_header" th:content="${_csrf.headerName}">
+<link href="../../webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<title th:text="${title}"></title>
+<!-- Style.css -->
+<link href="../static/css/style.css" rel="stylesheet"
+	th:href="@{/css/style.css}">
+<!-- Perfil.css -->
+<link href="../static/css/perfil.css" rel="stylesheet"
+	th:href="@{/css/perfil.css}">
+<!-- Select2 -->
+<link href="../static/css/select2.css" rel="stylesheet"
+	th:href="@{/css/select2.css}">	
+<!--datables CSS básico-->
+<link href="../datatables/datatables.min.css" rel="stylesheet"
+	th:href="@{/datatables/datatables.min.css}">
+	
+<!--datables estilo bootstrap 4 CSS-->
+<link
+	href="../datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css"
+	rel="stylesheet"
+	th:href="@{/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css}">
+	
+<!-- Iconify  -->
+<script src="https://code.iconify.design/1/1.0.2/iconify.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}"/>
+
+<!-- Font Awesome -->
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+<!-- Star -->
+
+<link href="../static/css/starrr.css" rel=stylesheet th:href="@{/css/starrr.css}"/>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../../webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<header th:fragment="header">
+		<nav
+			class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar navbar-color">
+			<!-- <a class="navbar-brand" href="/teacher/teacherList"><img
+				th:src="@{/img/logo.png}" src=".../static/img/logo.png" width="140"
+				height="60" alt=""></a> -->
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+				
+					<li style="width:175px;height:0px;margin-top:-6px;"  class="nav-item"><a class="nav-link"
+						th:href="@{/teacher/}">
+						<img th:src="@{/img/logo2.jpg}" src="./static/img/logo.png" class="img-fluid d-block mx-auto">
+						</a></li>
+
+					<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="nav-item"><a class="nav-link"
+						th:href="@{/teacher/teacherList}">Profesores</a></li>
+
+					<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="nav-item"><a class="nav-link"
+						th:href="@{/student/studentList}">Estudiantes</a></li>
+
+					<li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="nav-item"><a class="nav-link"
+						th:href="@{/specialty/specialtyList}">Especialidades</a></li>
+						
+					<li th:if="${#authorization.expression('hasRole(''ROLE_PROFESOR'')')}" class="nav-item"><a class="nav-link"
+						th:href="@{/teacher/myPerfil}">Mi Perfil</a></li>	
+
+					<li th:if="${#authorization.expression('hasRole(''ROLE_PROFESOR'')')}" class="nav-item"><a class="nav-link"
+						th:href="@{/message/messagesP}">Mensajes</a></li>	
+						
+					<li th:if="${#authorization.expression('hasRole(''ROLE_ESTUDIANTE'')')}" class="nav-item"><a class="nav-link"
+						th:href="@{/message/messagesE}">Mensajes</a></li>				
+
+				</ul>
+					<a th:if="${#authentication.getPrincipal() == 'anonymousUser'}" th:href="@{/teacher/login}"><button class="btn btn-outline-dark my-2 mr-2 my-sm-0" type="button">Iniciar Sesión</button></a>
+					<a th:if="${#authentication.getPrincipal() == 'anonymousUser'}" th:href="@{/teacher/register}"><button class="btn btn-danger my-2 my-sm-0 " type="button">Regístrate</button></a>
+					<div th:if="${#authentication.getPrincipal() != 'anonymousUser'}" class="dropdown">
+						<button class="btn btn-outline-dark dropdown-toggle my-1 mx-5 mx-sm-5 " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="menuUsuario"><span th:text="${name}" ></span>
+						</button>
+						<div class="dropdown-menu" aria-labelledby="menuUsuario" id="menuUsuario">
+							<form id="logoutform" th:action="@{/logout}" method="post">
+								<input type="hidden" th:name="${_csrf.parameterName}"
+                                           th:value="${_csrf.token}">
+								<button type="submit" class="dropdown-item" onclick="$('#logoutform').submit();">Cerrar Sesion</button>
+								
+							</form>
+							
+							<!--  <a class="dropdown-item" href="#" th:href="@{/logout}" >Cerrar Sesion</a>-->
+						</div>
+					</div>
+					
+			</div>
+		</nav>
+	</header>
+	<script>
+		$(document).ready(function(){
+			$('.dropdown-toggle').dropdown()
+		})
+	</script>
+</body>
+</html>

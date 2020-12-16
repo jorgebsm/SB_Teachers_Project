@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/header :: head">
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+	<header th:replace="layout/header :: header"></header>
+	<br>
+	<br>
+	<br>
+	<div class="page catalog-page">
+        <section class="clean-block clean-catalog dark">
+            <div class="container">
+            	<!--
+                <div class="block-heading">
+                    <h2 class="text-info">Listado de profesores</h2>
+                    <p>Encuentra aquí al profesor que necesitas! Puedes utilizar el listado de categorías disponibles para buscar según tus criterios.</p>
+                </div>
+            	-->
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="d-none d-md-block">
+                            <form action="/teacher/teachers/" method="get" novalidate="novalidate">
+                                <div class="filters">
+                                <h3>Filtro Perzonalizado</h3>
+                                	<div class="filter-item">
+                                        <select id="buscador1" th:name="ciudad" class="col-12">
+											<option value="">Ciudad</option>
+											<option value="">Todas las ciudades</option> 
+											<option th:each="city: ${cities}" th:value="${city.nombre_ciudad}" th:text="${city.nombre_ciudad}"></option>
+										</select>
+                                    </div>
+                                    
+                                    <div class="filter-item">
+                                        <select id="buscador2" th:name="especialidad" class="col-12">
+											<option value="">Especialidad</option>
+											<option value="">Todas las especialidades</option> 
+											<option th:each="specialty: ${specialties}" th:value="${specialty.nombre}" th:text="${specialty.nombre}"></option>
+										</select>
+                                    </div>
+                                    
+                                    <div class="filter-item">
+                                        <select id="buscador3" th:name="nivelEducacional" class="col-12">
+											<option value="">Nivel Educacional</option>
+											<option value="">Todos los niveles</option> 
+											<option th:each="nivelEducacional: ${nivelEducacional}" th:value="${nivelEducacional}" th:text="${nivelEducacional}"></option>
+										</select>
+                                    </div>
+
+                                    <div class="filter-item">
+                                        <select id="buscador4" th:name="modalidad" class="col-12">
+											<option value="">Modalidad</option>
+											<option value="">Todas las modalidades</option> 
+											<option th:each = "modalidad: ${modalidad}" th:value = "${modalidad}" th:text="${modalidad}"></option>
+										</select>
+                                    </div>
+                                    
+                                    <div class="filter-item">
+                                        <select id="buscador5" name="tarifa" class="col-12">
+											<option value="0">Precio Máximo</option> 
+											<option value="0">Todos los precios</option> 
+											<option value="1000">$1.000</option>
+											<option value="2000">$2.000</option>
+											<option value="3000">$3.000</option>
+											<option value="4000">$4.000</option>
+											<option value="5000">$5.000</option>
+											<option value="6000">$6.000</option>
+											<option value="7000">$7.000</option>
+											<option value="8000">$8.000</option>
+											<option value="9000">$9.000</option>
+											<option value="10000">$10.000</option>
+											<option value="15000">$15.000</option>
+											<option value="20000">$20.000</option>
+											<option value="25000">$25.000</option>
+											<option value="30000">$30.000</option>
+											<option value="40000">$40.000</option>
+											<option value="50000">$50.000</option>
+											<option value="100000">$100.000</option>
+											<option value="500000">$500.000</option>
+											<option value="1000000">$1.000.000</option>
+										</select>
+										
+                                    </div>
+                                    
+                                    <div>
+										<a><button type="submit" class="btn btn-danger wrn-btn">Filtrar</button></a>
+									</div>
+
+                                </div>
+                                </form>
+                            </div>
+                            <div class="d-md-none"><a class="btn btn-link d-md-none filter-collapse" data-toggle="collapse" aria-expanded="false" aria-controls="filters" role="button" href="#filters">Filters<i class="icon-arrow-down filter-caret"></i></a>
+                                <div class="collapse"
+                                    id="filters">
+                                    <form action="/teacher/teachers/" method="get" novalidate="novalidate">
+                                <div class="filters">
+                                <h3>Filtro Perzonalizado</h3>
+                                	<div class="filter-item">
+                                        <select id="buscador1" th:name="ciudad" class="col-12">
+											<option value="">Ciudad</option>
+											<option value="">Todas las ciudades</option> 
+											<option th:each="city: ${cities}" th:value="${city.nombre_ciudad}" th:text="${city.nombre_ciudad}"></option>
+										</select>
+                                    </div>
+                                    
+                                    <div class="filter-item">
+                                        <select id="buscador2" th:name="especialidad" class="col-12">
+											<option value="">Especialidad</option>
+											<option value="">Todas las especialidades</option> 
+											<option th:each="specialty: ${specialties}" th:value="${specialty.nombre}" th:text="${specialty.nombre}"></option>
+										</select>
+                                    </div>
+                                    
+                                    <div class="filter-item">
+                                        <select id="buscador3" th:name="nivelEducacional" class="col-12">
+											<option value="">Nivel Educacional</option>
+											<option value="">Todos los niveles</option> 
+											<option th:each="nivelEducacional: ${nivelEducacional}" th:value="${nivelEducacional}" th:text="${nivelEducacional}"></option>
+										</select>
+                                    </div>
+
+                                    <div class="filter-item">
+                                        <select id="buscador4" th:name="modalidad" class="col-12">
+											<option value="">Modalidad</option>
+											<option value="">Todas las modalidades</option> 
+											<option th:each = "modalidad: ${modalidad}" th:value = "${modalidad}" th:text="${modalidad}"></option>
+										</select>
+                                    </div>
+                                    
+                                    <div class="filter-item">
+                                        <select id="buscador5" name="tarifa" class="col-12">
+											<option value="0">Precio Máximo</option> 
+											<option value="0">Todos los precios</option> 
+											<option value="1000">$1.000</option>
+											<option value="2000">$2.000</option>
+											<option value="3000">$3.000</option>
+											<option value="4000">$4.000</option>
+											<option value="5000">$5.000</option>
+											<option value="6000">$6.000</option>
+											<option value="7000">$7.000</option>
+											<option value="8000">$8.000</option>
+											<option value="9000">$9.000</option>
+											<option value="10000">$10.000</option>
+											<option value="15000">$15.000</option>
+											<option value="20000">$20.000</option>
+											<option value="25000">$25.000</option>
+											<option value="30000">$30.000</option>
+											<option value="40000">$40.000</option>
+											<option value="50000">$50.000</option>
+											<option value="100000">$100.000</option>
+											<option value="500000">$500.000</option>
+											<option value="1000000">$1.000.000</option>
+										</select>
+										
+                                    </div>
+                                    
+                                    <div>
+										<a><button type="submit" class="btn btn-danger wrn-btn">Filtrar</button></a>
+									</div>
+
+                                </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="products">
+                                <div class="row no-gutters">
+
+									<a th:each="teacher: ${teachers}">
+                                    <a th:href="@{'/teacher/teacher/' + ${teacher.id}}">
+                                    <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="clean-product-item">
+                                            <div class="image"><img style="border-radius: 10px;" th:src="@{/img/image1.jpg}" src="./static/img/image1.jpg" class="img-fluid d-block mx-auto"></div>
+                                            <h5 style="text-align: center; font-weight: bold;"><a th:text="${teacher.nombres}"></a></h5>
+                                            <h6 style="color:rgba(0, 0, 0, .5); text-align: center;"><a th:text="${teacher.getCiudad().getNombre_ciudad()}"></a></h6>
+                                            <small style="color:rgba(0, 0, 0, .5)">• <td th:text="${teacher.getEspecialidades().get(0).getNombre()}"></small><br>
+                                            <small style="color:rgba(0, 0, 0, .5)">• <a th:text="${teacher.nivelEducacional}"></a></small><br>
+                                            <small style="color:rgba(0, 0, 0, .5)">• <a th:text="${teacher.modalidad}"></a></small>
+                                            <div class="about">
+                                                <div class="rating">
+												<span class="iconify" data-icon="emojione:star"
+													data-inline="false"></span><span class="iconify"
+													data-icon="emojione:star" data-inline="false"></span><span
+													class="iconify" data-icon="emojione:star" data-inline="false"></span><span
+													class="iconify" data-icon="emojione:star" data-inline="false"></span><span
+													class="iconify" data-icon="emojione:star" data-inline="false"></span>
+											</div>
+                                                <div class="price">
+                                                    <h3>$ <td th:text="${teacher.tarifa}"></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </a>
+                                    </a>
+                                    
+                                </div>
+                                <nav>
+                                    <ul class="pagination">
+                                        <li class="page-item disabled"><a class="page-link" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                                        <li class="page-item active"><a class="page-link">1</a></li>
+                                        <li class="page-item"><a class="page-link">2</a></li>
+                                        <li class="page-item"><a class="page-link">3</a></li>
+                                        <li class="page-item"><a class="page-link" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+		<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/jquery-ui.min.js}"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+	<script>
+		$(document).ready(function() {
+			$('#buscador1').select2();
+			$('#buscador2').select2();
+			$('#buscador3').select2();
+			$('#buscador4').select2();
+			$('#buscador5').select2();
+		});
+	</script>
+	
+	<!-- Select2 -->
+	<script th:src="@{/js/select2.js}"></script>
+</body>
+</html>

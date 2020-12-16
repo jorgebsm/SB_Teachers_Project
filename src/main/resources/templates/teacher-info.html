@@ -1,0 +1,26 @@
+<br>
+<div class="table-responsive">
+	<table class="table table-bordered">
+		    <tbody>
+		        <tr>
+		            <td class="stat">Ciudad</td>
+		            <td th:text="${teacher.getCiudad().getNombre_ciudad()}" ></td>
+		        </tr>
+		        <tr>
+		            <td class="stat">Especialidades</td>
+		            <td>
+    			       <li th:each="especialidad: ${teacher.getEspecialidades()}" th:text="${especialidad.getNombre()}"></li>
+		            </td>
+		        </tr>
+		        <tr>
+		            <td class="stat">Nivel Educacional</td>
+		            <td th:text="${teacher.getNivelEducacional()}"></td>
+		        </tr>
+		        <tr>
+		            <td class="stat">Modalidad</td>
+		            <td th:text="${teacher.getModalidad()}"></td>
+		        </tr>
+		    </tbody>
+	</table>
+</div>
+<a th:href="@{'/teacher/teacherForm/' + ${teacher.id}}"><button type="button" class="btn btn-success">Editar</button></a>

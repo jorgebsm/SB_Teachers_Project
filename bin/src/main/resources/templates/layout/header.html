@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<link href="../../webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<title th:text="${title}"></title>
+<!-- Style.css -->
+<link href="../static/css/style.css" rel="stylesheet"
+	th:href="@{/css/style.css}">
+<!-- Perfil.css -->
+<link href="../static/css/perfil.css" rel="stylesheet"
+	th:href="@{/css/perfil.css}">
+<!-- Select2 -->
+<link href="../static/css/select2.css" rel="stylesheet"
+	th:href="@{/css/select2.css}">	
+<!--datables CSS básico-->
+<link href="../DataTables/datatables.min.css" rel="stylesheet"
+	th:href="@{/DataTables/datatables.min.css}">
+	
+<!--datables estilo bootstrap 4 CSS-->
+<link
+	href="../DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css"
+	rel="stylesheet"
+	th:href="@{/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css}">
+	
+<!-- Iconify  -->
+<script src="https://code.iconify.design/1/1.0.2/iconify.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}"/>
+</head>
+<body>
+	<header th:fragment="header">
+		<nav
+			class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar navbar-color">
+			<!-- <a class="navbar-brand" href="/teacher/teacherList"><img
+				th:src="@{/img/logo.png}" src=".../static/img/logo.png" width="140"
+				height="60" alt=""></a> -->
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/teacher/teacherList}">Profesores</a></li>
+
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/student/studentList}">Estudiantes</a></li>
+
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/specialty/specialtyList}">Especialidades</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/teacher/myPerfil}">Mi Perfíl</a></li>	
+
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<a th:href="@{/teacher/login}"><button class="btn btn-outline-dark my-2 mr-2 my-sm-0" type="button">Iniciar Sesión</button></a>
+					<a th:href="@{/teacher/register}"><button class="btn btn-danger my-2 my-sm-0" type="button">Regístrate</button></a>
+				</form>
+			</div>
+		</nav>
+	</header>
+	<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/jquery-ui.min.js}"></script>
+	<script th:src="@{/js/datatables.min.js}"></script>
+	<script th:src="@{/js/datatable-language.js}"></script>
+</body>
+</html>

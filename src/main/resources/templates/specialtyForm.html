@@ -1,0 +1,60 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/header :: head">
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+	<header th:replace="layout/header :: header"></header>
+	<br><br><br>
+	<div class="container">
+		<br>
+		<div align="center" class="mb-3">
+			<h2>Registro Especialidad</h2>
+		</div>
+		<div class="card" style="width: 40rem; margin: auto auto;">
+			<div class="card-body">
+				<br>
+				<form th:action="@{/specialty/save}" th:object="${specialty}"
+					method="post">
+
+					<input type="hidden" th:field="*{id}" readonly="readonly" />
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="nombre">Nombre:</label>
+							</div>
+							<div class="col-10">
+								<input type="text" name="nombre" class="form-control"
+									th:field="*{nombre}" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-2">
+								<label for="descripcion">Descripcion:</label>
+							</div>
+							<div class="col-10">
+								<input type="text" name="descripcion" class="form-control"
+									th:field="*{descripcion}" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="from-group">
+						<div class="row">
+							<div class="col-10" style="margin: auto auto;">
+								<button type="submit" class="btn btn-primary btn-block">Registrar</button>
+							</div>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

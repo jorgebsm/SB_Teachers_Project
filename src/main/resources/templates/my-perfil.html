@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/header :: head">
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+	<header th:replace="layout/header :: header"></header>
+	<br>
+	<br>
+	<br>
+	<div class="page product-page">
+		<section class="clean-block clean-product dark">
+			<div class="container">
+				<div class="block-heading">
+					<h2 class="text-info">Profesor</h2>
+					<p>Introducción.</p>
+				</div>
+				<div class="block-content">
+			    <form th:object="${teacher}" method="post">
+					<div class="product-info mb-5">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="gallery">
+									<div>
+										<img th:src="@{/img/image1.jpg}" src="./static/img/image1.jpg"
+											class="img-fluid d-block mx-auto">
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-6">
+								<div class="info">
+								
+									<h3 th:text ="${teacher.getNombres()+' '+teacher.getApellidos()}">Nombre - Apellidos</h3>
+									<hr/>
+						            	Calificar: <span id="Estrellas"></span>
+						            <hr/>
+									<div class="price">
+										<h3 th:text ="${'$'+teacher.getTarifa()}"></h3>
+									</div>
+									<button class="btn btn-primary mt-3 mb-3" type="button">
+										<i class="icon-basket"></i>Contactar
+									</button>
+									<div class="summary">
+										<p th:text="${'Descripcion: '+teacher.getDescripcion()}"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					</form>
+
+					<div class="product-info">
+						<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<li class="nav-item mr-3 active"><a id="list-tab" class="nav-link active" href="#info" data-toggle="tab" role="tab" aria-controls="list" aria-selected="true">Información</a></li>
+							<li class="nav-item"><a id="comment-tab" class="nav-link" href="#comment" data-toggle="tab" role="tab" aria-controls="comment" aria-selected="false">Comentarios</a></li>
+						</ul>
+						<div class="tab-content" id="myTabContent">
+							<div id="info" class="tab-pane fade show active" role="tabpanel" aria-labelledby="list-tab">
+								<div th:include="teacher-info.html" th:remove="tag"></div>
+
+							</div>
+							<div id="comment" class="tab-pane fade show" role="tabpanel" aria-labelledby="comment-tab">
+								<div th:include="teacher-comment.html" th:remove="tag"></div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+		<script th:src="@{/js/starrr.js}"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
+		<footer th:insert="layout/footer :: footer"></footer>
+		<script>
+	    var token = $("meta[name='_csrf']").attr("content"), header = $("meta[name='_csrf_header']").attr("content");
+
+		   $('#Estrellas').starrr({
+		       rating:3,
+		       change:function(e,valor){
+		           alert(valor);
+		            /*$.ajax({
+		                type: "POST",
+		                contentType: "application/json",
+		                url: "/teacher/valorar",
+		                dataType: "json",
+		                data: valor,
+		                cache: false,
+		                timeout: 600000,
+		                beforeSend: function (e) {
+		                    e.setRequestHeader(header, token)
+		                },
+		                success: function (data) {
+		                    if (data.length > 0) {
+		                        console.log(data);
+		                    } else {
+		                        console.log('error');
+		                    }
+		                }
+		            });*/
+
+		       }
+		   });
+    	</script>
+</body>
+</html>
